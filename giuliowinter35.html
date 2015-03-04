@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>winter35</title>
+    <title>winter33</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
@@ -27,22 +27,83 @@
     </style>
 
     <script>
-    //toreador march
-    var tempo = 2000;
+     var tempo = 2000;
     mysong = [
-        [261, tempo * .125],
-        [261, tempo * .125],
-        [261, tempo * .125],
-        [698, tempo * .25],
-        [880, tempo * .25],
-        [null, 50]
+        [392.0, tempo * .125],
+        [392.0, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [493.9, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .125],
+        [493.9, tempo * .125],
+        [493.9, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
+        [587.3, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
+        [392.0, tempo * .125],
+        [392.0, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [493.9, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .125],
+        [493.9, tempo * .125],
+        [493.9, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
+        [587.3, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
+        [392.0, tempo * .125],
+        [392.0, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [493.9, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .125],
+        [493.9, tempo * .125],
+        [493.9, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
+        [587.3, tempo * .125],
+        [493.9, tempo * .0625],
+        [493.9, tempo * .0625],
     ];
-    //charge
-    var tempo = 2000;
-    mysongb = [
-        [261, tempo * .125],
-        [261, tempo * .125],
-        [null, 50]
+ mysongb = [
+        [392.0, tempo * .125],
+        [392.0, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
+        [493.9, tempo * .125],
+        [392.0, tempo * .0625],
+        [392.0, tempo * .0625],
     ];
 
     function sensop(mag) {
@@ -126,24 +187,10 @@
 
 
         $("#turnLeft").click(function(e) {
-            console.log('left');
+            console.log('stop');
             socket.emit('drive', {
                 left: -15,
                 right: 15
-            });
-        });
-
-        $("#kick").click(function(e) {
-            console.log('kick');
-            socket.emit('drive', {
-                left: 200,
-                right: 200,
-            }
-            //should stop after 1000
-                    setTimeout(function() {
-                        socket.emit('drive', {left: 0, right: 0});
-                    }, 1000)
-
             });
         });
 
@@ -217,6 +264,27 @@
 
             }
 
+            if (event.which === 75) //k - kick
+            {
+                
+                event.preventDefault();
+                speed = $("#speed").text();
+                speed = speed * 1 + 25;
+                $("#speed").text(speed);
+                 socket.emit('sing', mysongb);
+                socket.emit('drive', {
+                    left: 300,
+                    right: 300
+                });
+                 setTimeout(function() {
+                        socket.emit('drive', {left: -300, right: -300});
+                    }, 500)
+                 setTimeout(function() {
+                        socket.emit('drive', {left: 0, right: 0});
+                    }, 20)
+
+
+            }
             if (event.which === 65) //a - forward left
             {
                 event.preventDefault();
@@ -336,13 +404,12 @@
             <button class="btn-danger btn col-md-2" id="fullMode">Full Mode</button>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-xs-3">
+
+
                 <button id="playsong" class="btn-success btn-lg btn-block">Play Music
                     <span class="glyphicon glyphicon-music"></span>
                 </button>
-                <button class="btn-danger btn-lg btn-block" id="kick">Kick<span class="glyphicon glyphicon-flash"></span>
-                </button>
-            </div>
             </div>
         </div>
         <div class="row">
